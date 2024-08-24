@@ -29,7 +29,7 @@ export default function PrimarySearchAppBar() {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [showExpenseApply, setShowExpenseApply] = React.useState(false);
-  const [showExpensedetail,setshowExpensedetail]=React.useState(false);
+  const [showExpensedetail,setshowExpensedetail]=React.useState(true);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
   const isMenuOpen = Boolean(anchorEl);
@@ -64,10 +64,13 @@ export default function PrimarySearchAppBar() {
       <AppBar position="static" sx={{ backgroundColor: '#365d9b', height: '70px' }}>
         <Toolbar>
           <img alt="eiralogo" src={eiraa} style={{ width: '160px' }} />
-          <Box sx={{ flexGrow: 1 }} />
+          <Box sx={{ flexGrow: 2 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <IconButton size="large" color="inherit"onClick={handleClaimDatail}>
               <Typography style={{ width: "100%" }}>Claim Details</Typography>
+            </IconButton>
+            <IconButton size="large" color="inherit" onClick={handleClaimApply}>
+              <Typography>Claim Apply</Typography>
             </IconButton>
             <IconButton size="large" color="inherit" onClick={handleClaimApply}>
               <Typography>Claim Apply</Typography>
