@@ -51,7 +51,7 @@ const ExpenseReview = () => {
         >
            <Box sx={{ mt: 2, p: 3}}>
           <Typography variant="h5" gutterBottom>
-            Expense Claim Form
+            Expense Claim 
           </Typography>
           <Box component="form" noValidate autoComplete="off">
             <div style={{display: "flex", justifyContent: "space-between", marginTop: "90px" }}>
