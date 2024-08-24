@@ -38,19 +38,18 @@ const ExpenseReview = () => {
   };
 
   return (
-    <div className="scroll-lock">
-      <div className="main-log no-scroll">
+      <div>
         <Paper
           elevation={5}
           style={{
-            margin: "70px 0 0 240px",
-            padding: "20px",
+            margin: "0 0 0 300px",
+            // padding: "20px",
             boxSizing: "border-box",
-            height: "80vh",
+            height: "auto",
             width: "70%",
-            overflowY: "auto",
           }}
         >
+           <Box sx={{ mt: 2, p: 3}}>
           <Typography variant="h5" gutterBottom>
             Expense Claim Form
           </Typography>
@@ -143,9 +142,10 @@ const ExpenseReview = () => {
             </Button>
             </div>
           </Box>
+          </Box>
         </Paper>
       </div>
-    </div>
+   
   );
 };
 
