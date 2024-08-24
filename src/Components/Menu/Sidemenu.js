@@ -53,7 +53,9 @@ export default function PrimarySearchAppBar() {
   const handleClaimApply = () => {
     setShowExpenseApply(true);
   };
-
+  const handleClaimDatail = () => {
+    setShowExpenseApply(false);
+  };
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{ backgroundColor: '#365d9b', height: '70px' }}>
@@ -61,7 +63,7 @@ export default function PrimarySearchAppBar() {
           <img alt="eiralogo" src={eiraa} style={{ width: '160px' }} />
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <IconButton size="large" color="inherit">
+            <IconButton size="large" color="inherit"onClick={handleClaimDatail}>
               <Typography style={{ width: "100%" }}>Claim Details</Typography>
             </IconButton>
             <IconButton size="large" color="inherit" onClick={handleClaimApply}>
@@ -112,7 +114,7 @@ export default function PrimarySearchAppBar() {
         </Toolbar>
       </AppBar>
 
-      {/* Conditionally render the Expenseapply component */}
+    
       {showExpenseApply && (
         <Box sx={{ mt: 2, p: 3 }}>
           <Expenseapply />
