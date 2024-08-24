@@ -8,7 +8,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { useNavigate } from 'react-router-dom';
 import eiraa from '../../image/logo.jpg';
 import Expenseapply from "../Expense/Expenseapply";
-
+import Expensedetail from"../Expense/Expensedetail"
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
@@ -29,6 +29,7 @@ export default function PrimarySearchAppBar() {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [showExpenseApply, setShowExpenseApply] = React.useState(false);
+  const [showExpensedetail,setshowExpensedetail]=React.useState(false);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
   const isMenuOpen = Boolean(anchorEl);
@@ -52,8 +53,10 @@ export default function PrimarySearchAppBar() {
 
   const handleClaimApply = () => {
     setShowExpenseApply(true);
+    setshowExpensedetail(false)
   };
   const handleClaimDatail = () => {
+    setshowExpensedetail(true)
     setShowExpenseApply(false);
   };
   return (
@@ -120,6 +123,12 @@ export default function PrimarySearchAppBar() {
           <Expenseapply />
         </Box>
       )}
+        {showExpensedetail &&(
+        <Box sx={{ mt: 2, p: 3 }}>
+          <Expensedetail />
+        </Box>
+      )}
+     
     </Box>
   );
 }

@@ -7,3 +7,14 @@ export const PostLogin = async (obj) => {
   );
   return response;
 };
+export const fetchViewticket = async (Id) => {
+  try {
+    const response = await axios.get(
+      `${process.env.REACT_APP_API_PATH}${process.env.REACT_APP_TICKET_VIEWTICKET_TABLE}/${Id}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error posting data:", error);
+    throw error;
+  }
+};
