@@ -75,6 +75,8 @@ export default function PrimarySearchAppBar() {
 
   const handleApprovedClaim = () => {
     setApprovedClaim(true);
+    setShowExpenseApply(false);
+    setshowExpensedetail(false);
   };
 
   return (
@@ -89,9 +91,6 @@ export default function PrimarySearchAppBar() {
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <IconButton size="large" color="inherit">
               <Typography style={{ width: "100%" }}>Claim Details</Typography>
-            </IconButton>
-            <IconButton size="large" color="inherit" onClick={handleClaimApply}>
-              <Typography>Claim Apply</Typography>
             </IconButton>
             <IconButton size="large" color="inherit" onClick={handleClaimApply}>
               <Typography>Claim Apply</Typography>

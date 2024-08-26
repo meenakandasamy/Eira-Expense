@@ -5,6 +5,7 @@ import Menu from "./Components/Menu/Sidemenu";
 import Expenseapply from "./Components/Expense/Expenseapply";
 import ApprovedClaim from "./Components/Expense/ApprovedClaim";
 import ApprovedReview from "./Components/Expense/ApprovedReview"
+import PrimarySearchAppBar from "./Components/Menu/Sidemenu";
 
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
           {/* <Route path="/expense-apply" element={<Expenseapply />} /> */}
           <Route path="/expenseapply" element={<Expenseapply />} />
           <Route path="/approved-claim" element={<ApprovedClaim />} />
-          <Route path="/approved-review" element={<ApprovedReview />} />
+          <Route path="/menu/approved-review" element={<ApprovedReview />} />
         </Routes>
       </Router>
     </div>
