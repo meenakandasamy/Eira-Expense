@@ -67,41 +67,43 @@ export default function PrimarySearchAppBar() {
   const handleClaimApply = () => {
     setShowExpenseApply(true);
     setshowExpensedetail(false)
+    setApprovedClaim(false);
   };
   const handleClaimDatail = () => {
     setshowExpensedetail(true)
     setShowExpenseApply(false);
+    setApprovedClaim(false);
   };
 
   const handleApprovedClaim = () => {
     setApprovedClaim(true);
+    setShowExpenseApply(false);
+    setshowExpensedetail(false)
   };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
         position="static"
-        sx={{ backgroundColor: "#365d9b", height: "70px" }}
+        sx={{ backgroundColor: "white", height: "70px" }}
       >
         <Toolbar>
           <img alt="eiralogo" src={eiraa} style={{ width: "160px" }} />
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <IconButton size="large" color="inherit">
-              <Typography style={{ width: "100%" }}>Claim Details</Typography>
+              <Typography style={{ width: "100%",color:"#71766f" }}onClick={ handleClaimDatail}>Claim Details</Typography>
             </IconButton>
             <IconButton size="large" color="inherit" onClick={handleClaimApply}>
-              <Typography>Claim Apply</Typography>
+              <Typography style={{ width: "100%",color:"#71766f" }}>Claim Apply</Typography>
             </IconButton>
-            <IconButton size="large" color="inherit" onClick={handleClaimApply}>
-              <Typography>Claim Apply</Typography>
-            </IconButton>
+       
             <IconButton
               size="large"
               color="inherit"
               onClick={handleApprovedClaim}
             >
-              <Typography>Approved Claim</Typography>
+              <Typography style={{ width: "100%",color:"black" }}>Approved Claim</Typography>
             </IconButton>
             <IconButton
               size="large"

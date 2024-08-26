@@ -1,357 +1,570 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-/*------------------------- MUI components ------------- */
+import React, { useState,useEffect } from "react";
+import TableTemplate from "../../Table/TableTemplate";
+import {claimdetail} from "../../Util/Textfield"
 import {
-  Box,
-  Paper,
   Typography,
-  Button,
   Grid,
-  Tooltip,
-  Stack,
-  Table,
-  TableCell,
-  TableBody,
-  TableHead,
-  TableContainer,
-  TableRow,
-  Card,
-  Autocomplete,
+  Button,
+  Box,
   TextField,
+  Modal,
+  Stack,
   Divider,
-  Pagination,
-  useTheme,
-  PaginationItem,
+  Fade,
+  Card,
+  CardHeader
+
+
+ 
 } from '@mui/material';
-import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
-import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
-import SubtitlesOffIcon from '@mui/icons-material/SubtitlesOff';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import CloseIcon from '@mui/icons-material/Close';
+
+const dayjs = require('dayjs');
 const Expensedetail = () => {
-    const [value,setvalue]=useState()
-    const [page, setPage] = useState(0);
-    const [pageValue, setPageValue] = useState(10);
-    const theme = useTheme();
-    const [rowsPerPage, setRowsPerPage] = useState(10);
-    function createData(name, calories, fat, carbs, protein) {
-        return { name, calories, fat, carbs, protein };
-      }
-      const handleChangePage = (event, newPage) => {
-        setPage(newPage - 1);
-      };
-      const handleClickGo = () => {
-        if (
-          pageValue > 0 &&
-          pageValue <= Math.ceil(rows.length / rowsPerPage)
-        ) {
-          setPage(pageValue - 1);
-        }
-      };
-      const PageChange = (value) => {
-        const newPageValue = parseInt(value, 10);
-        if (!isNaN(newPageValue)) {
-          setPageValue(newPageValue);
-        }
-      };
-      const rows = [
-        createData(1,"Expense Claim" , 9864, 2/8/2024, 1500),
-        createData(2,'Expense Claim', 9864, 2/8/2024, 1500),
-        createData(3,'Expense Claim', 9864, 2/8/2024, 1500),
-        createData(4,'Expense Claim',9864, 2/8/2024, 1500),
-        createData(5,'Expense Claim',9864, 2/8/2024, 1500),
-        createData(6,'Expense Claim', 9864, 2/8/2024, 1500),
-        createData(7,'Expense Claim', 9864, 2/8/2024,1500),
-        createData(8,'Expense Claim', 9864,2/8/2024, 1500),
-        createData(9,'Expense Claim', 9864, 2/8/2024,1500),
-        createData(10,'Expense Claim', 9864, 2/8/2024,1500),
+  const [closeticket,setcloseticket]=useState(false)
+  const [addclaim,setaddclaim]=useState(false)
+  const [fieldValue, setFieldValue] = useState()
+  const [textt, setTextFieldd] = useState([]);
+  const data = [
+    { name: "Document 1", datee: "2024-08-01" },
+    { name: "Document 2", datee: "2024-08-02" },
+    { name: "Document 1", datee: "2024-08-01" },
+    { name: "Document 1", datee: "2024-08-01" },
+    { name: "Document 1", datee: "2024-08-01" },
+    { name: "Document 1", datee: "2024-08-01" },
+    { name: "Document 1", datee: "2024-08-01" },
+    { name: "Document 1", datee: "2024-08-01" },
+    { name: "Document 1", datee: "2024-08-01" },
+    { name: "Document 1", datee: "2024-08-01" },
+    { name: "Document 2", datee: "2024-08-02" },
+    { name: "Document 2", datee: "2024-08-02" },
+    { name: "Document 2", datee: "2024-08-02" },
+    { name: "Document 2", datee: "2024-08-02" },
+    { name: "Document 2", datee: "2024-08-02" },
+    { name: "Document 2", datee: "2024-08-02" },
+    { name: "Document 2", datee: "2024-08-02" },
+    { name: "Document 2", datee: "2024-08-02" },
+  ];
+
+  const columns = [
+    { id: "name", label: "Document Name" },
+    { id: "datee", label: "Upload Date" },
+  ];
+  const paths = [
+    { label: "Home", path: "/menu/sitelist" },
+
+    { label: "Claim Details", path: "equipmentdetails" },
+  ];
+  const handleCrate = () => {
+    setaddclaim(true)
+  };
+  const handlefilter=()=>{
+    setcloseticket(true)
+  }
+  const handleClosefilter=()=>{
+    setcloseticket(false)
+  }
+  useEffect(() => {
+    let data = claimdetail();
+    setTextFieldd(data);
+  }, []);
+  const stylee = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 580,
+    bgcolor: 'background.paper',
+    height: 270,
+    borderRadius: '20px',
+    padding: '1px',
+  };
+  const handleChangevalue = (e) => {
+    setFieldValue({ ...fieldValue, [e.target.name]: e.target.value });
+  };
+  const handleCloseBack = () => {
+    // Setnextvalue(false);
+    setcloseticket(false);
+    window.location.reload();
+  };
+  const handlecloseUpdate = async () => {
+    // try {
+    //   let data = {
+    //     ticketIds: value,
+    //     remarks: fieldValue?.remarks,
+    //   };
+ 
+    //   let responsedata = await putBulkTicketclose(data);
+    //   if (responsedata.status == 200) {
+    //     fetchData();
+    //     setcloseticket(false);
+    //     setSnack(errorMsg.success);
+    //     handleCloseNext();
+    //   }
+    // } catch (error) {
+    //   setSnack(errorMsg.failure);
      
-      ];
+    // }
+  };
+  const handleClose=()=>{
     
-      const handleChangeRowsPerPage = (event, newValue) => {
-        setRowsPerPage(newValue);
-        setPage(0);
-      };
-      const renderCustomPrevious = (props) => (
-        <CustomIconSlot
-          name="PREVIOUS"
-          icon={<ArrowBackIcon style={{ fontSize: '16px' }} />}
-          {...props}
-        />
-      );
-      const CustomIconSlot = ({ name, icon, ...props }) => (
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            flexDirection: name === 'NEXT' ? 'row-reverse' : 'row',
-          }}
-        >
-          {React.cloneElement(icon, props)}
-          <Typography
-            style={{
-              margin: '14px',
-              color: colorMode === 'light' ? '#484C46' : '#007AFF',
-              fontSize: '12px',
-            }}
-          >
-            {name}
-          </Typography>
-        </div>
-      );
-      const renderCustomNext = (props) => (
-        <CustomIconSlot
-          name="NEXT"
-          icon={
-            <ArrowForwardIcon
-              // sx={{ color: colorMode === 'light' ? '#484C46' : '#007AFF' }}
-              style={{ fontSize: '16px' }}
-            />
-          }
-          {...props}
-        />
-      );
-      const rowsPerPageOptions = [ 10, 15, 20];
-      const colorMode = theme.palette.mode;
-    return(
-        <div>
-       
-          <div>
-        <Box style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
-          <Paper
-            elevation={0}
-            style={{
-           
-              width: '100%',
-              borderRadius: '2px 2px 0px 0px',
-              userSelect: 'none',
-              height: '5vh',
-              display: 'flex',
-              alignItems: 'center',
-            }}
-          >
-            <Grid
-              container
-           
-              width={'100%'}
-              direction="row"
-              justifyContent="space-between"
-              style={{ display: 'flex', alignItems: 'center' }}
+  }
+  return (
+    <div>
+      <div>
+      <TableTemplate
+        data={data}
+        columns={columns}
+        handlefilterPopupOpen={(val)=>handlefilter(val)}
+        SearchLabel={'Search Company Here... '}
+        handleAddPopupOpen={(val) =>handleCrate(val)}
+        addButton={"Add Claim"}
+        paths={paths}
+        fallbackText={"No company has been created"}
+        // handleAddPopupOpen={(val) => handleCrate(val)}
+      />
+      </div>
+      <div>
+      <div>
+            <Modal
+              open={closeticket}
+              onClose={handleClosefilter}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
             >
-             
-             <Grid
-                item
-                xs={4}
-                style={{ display: 'flex', alignItems: 'center' }}
-              >
-              <Typography style={{fontSize:"17px",color:"black",padding:"10px"}}>Claim Details</Typography>
-              </Grid>
-              <Grid
-                item
-                xs="auto"
-                style={{ display: 'flex', alignItems: 'center' }}
-              >
-           
+              <Box sx={stylee}>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    // alignItems: 'center',
+                    padding: '20px',
+                    backgroundColor: 'rgb(246, 248, 252)',
+                    borderRadius: '20px',
+                  }}
+                >
                   <div>
-                    <Tooltip title="Re-assign ">
-                      <SupervisorAccountIcon
-                        // onClick={handleOpen}
-                        style={{
-                          marginRight: '10px',
-                          marginLeft: '10px',
-                          cursor: 'pointer',
-                          color: '#004AFF',
-                          fontSize: '25px',
-                        }}
-                      />
-                    </Tooltip>
+                    <Typography
+                      id="transition-modal-title"
+                      variant="h6"
+                      component="h4"
+                      className="modal-head"
+                      style={{ marginTop: '2%' }}
+                    >
+                 Customize Claim Filter
+                    </Typography>
                   </div>
-             
+                  <div>
+                    <Stack spacing={2} direction="row">
+                      <CloseIcon
+                        onClick={() => handleClosefilter()}
+                        style={{ cursor: 'pointer' }}
+                      />
+                    </Stack>
+                  </div>
+                </div>
+                <Divider sx={{ borderColor: '#888' }} />
+                <div style={{ padding: '40px 30px 30px ' }}>
+                  <div>
+                  
+                  
+                   
+                  <Grid container spacing={2} columns={8}>
+                              {textt?.length > 0
+                                ? textt?.map((data, index) => (
+                                    <Grid item xs={4}>
+                                      <div key={index}>
+                                        <>
+                                         
+                                        </>
 
-            
-                  <div>
-                    <Tooltip title="on-Hold ">
-                      <ConfirmationNumberIcon
-                        // onClick={handleHoldOpen}
-                        style={{
-                          marginRight: '10px',
-                          marginLeft: '10px',
-                          cursor: 'pointer',
-                          color: '#004AFF',
-                          fontSize: '25px',
-                        }}
-                      />
-                    </Tooltip>
-                  </div>
-           
+                                        {data.type === 'textField' ? (
+                                          <>
+                                            <Typography
+                                              variant="body1"
+                                              className="modal-typo"
+                                              gutterBottom
+                                            >
+                                              {data.label}
+                                            </Typography>
+                                            <TextField
+                                              as={TextField}
+                                              // disabled={toBackend}
+                                              id={`outlined-basic-${index}`}
+                                              size="small"
+                                              variant="outlined"
+                                              name={data.name}
+                                              inputProps={{
+                                                maxLength: data.length,
+                                              }}
+                                              placeholder={data.placeholder}
+                                              // onChange={(e) => {
+                                              //   handleChange(e);
+                                              //   handleTxtChange(e);
+                                              // }}
+                                              sx={{ width: '12vw' }}
+                                            />
+                                            {/* <ErrorMessage
+                                              name={data.name}
+                                              component="div"
+                                              className="error"
+                                              style={{
+                                                color: 'red',
+                                                marginTop: '1%',
+                                                textAlign: 'left',
+                                                marginLeft: '0%',
+                                              }}
+                                            /> */}
+                                          </>
+                                        )  : data.type === 'date' ? (
+                                          <LocalizationProvider
+                                            dateAdapter={AdapterDayjs}
+                                          >
+                                            <Typography
+                                              variant="body1"
+                                              className="modal-typo"
+                                              gutterBottom
+                                            >
+                                              {data.label}
+                                            </Typography>
+                                            <DatePicker
+                                              size="small"
+                                              sx={{
+                                                width: '12vw',
+                                              }}
+                                              name={data.name}
+                                              // onChange={(e) => {
+                                              //   handledatepicchange(
+                                              //     e,
+                                              //     data.name
+                                              //   );
+                                              // }}
+                                              slotProps={{
+                                                textField: {
+                                                  size: 'small',
+                                                },
+                                              }}
+                                            />
+                                          </LocalizationProvider>
+                                        ) : data.type === 'datee' ? (
+                                          <LocalizationProvider
+                                            dateAdapter={AdapterDayjs}
+                                          >
+                                            <Typography
+                                              variant="body1"
+                                              className="modal-typo"
+                                              gutterBottom
+                                            >
+                                              {data.label}
+                                            </Typography>
+
+                                            <DatePicker
+                                              size="small"
+                                              sx={{
+                                                width: '12vw',
+                                              }}
+                                              // minDate={fromDate}
+
+                                              // shouldDisableDate={(date) =>
+                                              //   dayjs(date).isBefore(s
+                                              //     dayjs(fromDate),
+                                              //     'day'
+                                              //   )
+                                              // }
+                                              name={data.name}
+                                              // onChange={(e) => {
+                                              //   handledatepic(e, data.name);
+                                              // }}
+                                              slotProps={{
+                                                textField: {
+                                                  size: 'small',
+                                                },
+                                              }}
+                                            />
+                                          </LocalizationProvider>
+                                        ) : null}
+                                      </div>
+                                    </Grid>
+                                  ))
+                                : null}
+                            </Grid>
                
-                  <div>
-                    <Tooltip title="Close">
-                      <SubtitlesOffIcon
-                        // onClick={handleCloseTicketOpen}
-                        style={{
-                          marginRight: '10px',
-                          marginLeft: '10px',
-                          color: '#004AFF',
-                          cursor: 'pointer',
-                          fontSize: '25px',
-                        }}
-                      />
-                    </Tooltip>
                   </div>
-          
-              </Grid>
-            </Grid>
-          </Paper>
-        </Box>
+
+                  <div>
+                    <Stack
+                      direction="row"
+                      spacing={2}
+                      style={{ justifyContent: 'center' }}
+                    >
+                  
+                        <div
+                          style={{
+                            display: 'flex',
+                            justifyContent: 'space-evenly',
+                            alignItems: 'center',
+                          
+                          }}
+                        >
+                          <div>
+                            <Button
+                              style={{
+                                textTransform: 'capitalize',
+                                marginTop: '4vh',
+                              }}
+                              variant="contained"
+                              onClick={handleCloseBack}
+                            >
+                              Cancel
+                            </Button>
+                          </div>
+                          <div>
+                            <Stack spacing={4} direction="row">
+                              <Button
+                                style={{
+                                  textTransform: 'capitalize',
+                                  marginTop: '4vh',
+                                  marginLeft: '7%',
+                                }}
+                                variant="contained"
+                                onClick={handlecloseUpdate}
+                              >
+                               Apply 
+                              </Button>
+                            </Stack>
+                          </div>
+                        </div>
+                     
+                    </Stack>
+                  </div>
+                </div>
+              </Box>
+            </Modal>
+          </div>
+
+          <div>
+            <Modal
+              open={addclaim}
+              onClose={handleClosefilter}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box sx={stylee}>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    // alignItems: 'center',
+                    padding: '20px',
+                    backgroundColor: 'rgb(246, 248, 252)',
+                    borderRadius: '20px',
+                  }}
+                >
+                  <div>
+                    <Typography
+                      id="transition-modal-title"
+                      variant="h6"
+                      component="h4"
+                      className="modal-head"
+                      style={{ marginTop: '2%' }}
+                    >
+              Add Claim 
+                    </Typography>
+                  </div>
+                  <div>
+                    <Stack spacing={2} direction="row">
+                      <CloseIcon
+                        onClick={() => handleClose()}
+                        style={{ cursor: 'pointer' }}
+                      />
+                    </Stack>
+                  </div>
+                </div>
+                <Divider sx={{ borderColor: '#888' }} />
+                <div style={{ padding: '40px 30px 30px ' }}>
+                  <div>
+                  
+                  
+                   
+                  <Grid container spacing={2} columns={8}>
+                              {textt?.length > 0
+                                ? textt?.map((data, index) => (
+                                    <Grid item xs={4}>
+                                      <div key={index}>
+                                        <>
+                                         
+                                        </>
+
+                                        {data.type === 'textField' ? (
+                                          <>
+                                            <Typography
+                                              variant="body1"
+                                              className="modal-typo"
+                                              gutterBottom
+                                            >
+                                              {data.label}
+                                            </Typography>
+                                            <TextField
+                                              as={TextField}
+                                              // disabled={toBackend}
+                                              id={`outlined-basic-${index}`}
+                                              size="small"
+                                              variant="outlined"
+                                              name={data.name}
+                                              inputProps={{
+                                                maxLength: data.length,
+                                              }}
+                                              placeholder={data.placeholder}
+                                              // onChange={(e) => {
+                                              //   handleChange(e);
+                                              //   handleTxtChange(e);
+                                              // }}
+                                              sx={{ width: '12vw' }}
+                                            />
+                                            {/* <ErrorMessage
+                                              name={data.name}
+                                              component="div"
+                                              className="error"
+                                              style={{
+                                                color: 'red',
+                                                marginTop: '1%',
+                                                textAlign: 'left',
+                                                marginLeft: '0%',
+                                              }}
+                                            /> */}
+                                          </>
+                                        )  : data.type === 'date' ? (
+                                          <LocalizationProvider
+                                            dateAdapter={AdapterDayjs}
+                                          >
+                                            <Typography
+                                              variant="body1"
+                                              className="modal-typo"
+                                              gutterBottom
+                                            >
+                                              {data.label}
+                                            </Typography>
+                                            <DatePicker
+                                              size="small"
+                                              sx={{
+                                                width: '12vw',
+                                              }}
+                                              name={data.name}
+                                              // onChange={(e) => {
+                                              //   handledatepicchange(
+                                              //     e,
+                                              //     data.name
+                                              //   );
+                                              // }}
+                                              slotProps={{
+                                                textField: {
+                                                  size: 'small',
+                                                },
+                                              }}
+                                            />
+                                          </LocalizationProvider>
+                                        ) : data.type === 'datee' ? (
+                                          <LocalizationProvider
+                                            dateAdapter={AdapterDayjs}
+                                          >
+                                            <Typography
+                                              variant="body1"
+                                              className="modal-typo"
+                                              gutterBottom
+                                            >
+                                              {data.label}
+                                            </Typography>
+
+                                            <DatePicker
+                                              size="small"
+                                              sx={{
+                                                width: '12vw',
+                                              }}
+                                              // minDate={fromDate}
+
+                                              // shouldDisableDate={(date) =>
+                                              //   dayjs(date).isBefore(s
+                                              //     dayjs(fromDate),
+                                              //     'day'
+                                              //   )
+                                              // }
+                                              name={data.name}
+                                              // onChange={(e) => {
+                                              //   handledatepic(e, data.name);
+                                              // }}
+                                              slotProps={{
+                                                textField: {
+                                                  size: 'small',
+                                                },
+                                              }}
+                                            />
+                                          </LocalizationProvider>
+                                        ) : null}
+                                      </div>
+                                    </Grid>
+                                  ))
+                                : null}
+                            </Grid>
+               
+                  </div>
+
+                  <div>
+                    <Stack
+                      direction="row"
+                      spacing={2}
+                      style={{ justifyContent: 'center' }}
+                    >
+                  
+                        <div
+                          style={{
+                            display: 'flex',
+                            justifyContent: 'space-evenly',
+                            alignItems: 'center',
+                          
+                          }}
+                        >
+                          <div>
+                            <Button
+                              style={{
+                                textTransform: 'capitalize',
+                                marginTop: '4vh',
+                              }}
+                              variant="contained"
+                              onClick={handleCloseBack}
+                            >
+                              Cancel
+                            </Button>
+                          </div>
+                          <div>
+                            <Stack spacing={4} direction="row">
+                              <Button
+                                style={{
+                                  textTransform: 'capitalize',
+                                  marginTop: '4vh',
+                                  marginLeft: '7%',
+                                }}
+                                variant="contained"
+                                onClick={handlecloseUpdate}
+                              >
+                               Apply 
+                              </Button>
+                            </Stack>
+                          </div>
+                        </div>
+                     
+                    </Stack>
+                  </div>
+                </div>
+              </Box>
+            </Modal>
+          </div>
       </div>
-      <div className="table-container-wrapper" style={{marginTop:"1%"}}>
-            <Card elevation={1} style={{ height: '9%' }}>
-  <TableContainer>
-    <Table aria-label="a dense table">
-      <TableHead>
-        <TableRow>
-          <TableCell align="center">S.No</TableCell>
-          <TableCell align="center">Claim</TableCell>
-          <TableCell align="center">Claim Number</TableCell>
-          {/* <TableCell align="center">Created Date</TableCell> */}
-          <TableCell align="center">Total Amount</TableCell>
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {rows
-          .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-          .map((row, index) => (
-            <TableRow key={index}>
-              <TableCell
-                align="center"
-                style={{
-                  minWidth: '150px',
-                  maxWidth: '300px', 
-                  whiteSpace: 'nowrap', 
-                  overflow: 'hidden', 
-                  textOverflow: 'ellipsis',
-                }}
-              >
-                {row.name}
-              </TableCell>
-              <TableCell align="center">{row.calories}</TableCell>
-             
-              <TableCell align="center">{row.fat}</TableCell>
+    </div>
 
-              <TableCell align="center">{row.protein}</TableCell>
-            </TableRow>
-          ))}
-      </TableBody>
-    </Table>
-  </TableContainer>
+  );
+};
 
-  <Grid container direction="row" justifyContent="space-between">
-    <Grid item xs={2}></Grid>
-    <Grid
-      item
-      xs={10}
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'flex-end',
-      }}
-    >
-      <Stack spacing={2} direction="row">
-        <Pagination
-          count={Math.ceil(rows.length / rowsPerPage)}
-          shape="rounded"
-          color="primary"
-          page={page + 1}
-          onChange={handleChangePage}
-          renderItem={(item) => (
-            <PaginationItem
-              slots={{
-                previous: renderCustomPrevious,
-                next: renderCustomNext,
-              }}
-              {...item}
-            />
-          )}
-        />
-        <Divider
-          orientation="vertical"
-          flexItem
-          style={{
-            color: '#E6E7E9',
-            marginRight: '16px',
-          }}
-        />
-      </Stack>
-      <Stack
-        direction="row"
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'flex-start',
-          marginLeft: '1%',
-        }}
-      >
-        <Typography
-          style={{
-            fontSize: '12px',
-            lineHeight: '15.52px',
-            fontWeight: '400',
-          }}
-        >
-          Go to page
-        </Typography>
-        <TextField
-          variant="standard"
-          style={{
-            width: '24px',
-            marginLeft: '5px',
-          }}
-          value={pageValue !== 0 ? pageValue : ''}
-          onChange={(e) => PageChange(e.target.value)}
-        />
-        <Button
-          style={{
-            padding: '0',
-            width: '12px',
-            fontSize: '14px',
-          }}
-          onClick={handleClickGo}
-          endIcon={
-            <ArrowForwardIcon style={{ fontSize: '16px' }} />
-          }
-        >
-          GO
-        </Button>
-        <Autocomplete
-          options={rowsPerPageOptions}
-          getOptionLabel={(option) => option.toString()}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              variant="standard"
-              sx={{
-                fontFamily: 'Inter, sans-serif',
-                width: 40,
-              }}
-            />
-          )}
-          value={rowsPerPage}
-          onChange={handleChangeRowsPerPage}
-          disableClearable
-          style={{ width: 120 }}
-        />
-      </Stack>
-    </Grid>
-  </Grid>
-</Card>
-
-
-            </div>
-          
-  
-      </div>
-    )
-}
 export default Expensedetail;
