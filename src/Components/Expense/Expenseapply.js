@@ -47,6 +47,7 @@ const ExpenseReview = () => {
             boxSizing: "border-box",
             height: "auto",
             width: "70%",
+            borderRadius: "15px"
           }}
         >
            <Box sx={{ mt: 2, p: 3}}>
