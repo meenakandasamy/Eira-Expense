@@ -77,10 +77,11 @@ export default function PrimarySearchAppBar() {
     setApprovedClaim(true);
     setShowExpenseApply(false);
     setshowExpensedetail(false);
+
   };
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box >
       <AppBar
         position="static"
         sx={{ backgroundColor: "white", height: "70px" }}
@@ -88,19 +89,19 @@ export default function PrimarySearchAppBar() {
         <Toolbar>
           <img alt="eiralogo" src={eiraa} style={{ width: "160px" }} />
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <IconButton size="large" color="inherit">
-              <Typography style={{ width: "100%" }}>Claim Details</Typography>
+          <Box >
+            <IconButton >
+              <Typography style={{ width: "100%",color:"black",fontsize: "14px"}}>Claim Details</Typography>
             </IconButton>
             <IconButton size="large" color="inherit" onClick={handleClaimApply}>
-              <Typography>Claim Apply</Typography>
+              <Typography style={{ color:"rgb(181, 181, 181)",fontsize: "14px"}}>Claim Apply</Typography>
             </IconButton>
             <IconButton
               size="large"
               color="inherit"
               onClick={handleApprovedClaim}
             >
-              <Typography>Approved Claim</Typography>
+              <Typography style={{ color:"rgb(181, 181, 181)",fontsize: "14px"}}>Approved Claim</Typography>
             </IconButton>
             <IconButton
               size="large"
@@ -110,6 +111,7 @@ export default function PrimarySearchAppBar() {
               aria-haspopup="true"
               onClick={handleProfileMenuOpen}
               color="inherit"
+              style={{ color:"rgb(181, 181, 181)"}}
             >
               <AccountCircle />
             </IconButton>
@@ -142,7 +144,7 @@ export default function PrimarySearchAppBar() {
                   <Button
                     variant="text"
                     onClick={handleLogout}
-                    style={{ textTransform: "capitalize", color: "red" }}
+                    style={{ textTransform: "capitalize"}}
                     startIcon={<LogoutIcon />}
                   >
                     Log out
