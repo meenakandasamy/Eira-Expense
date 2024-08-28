@@ -1,49 +1,32 @@
-import * as React from "react";
+import React, { useState } from "react";
 import { styled, alpha } from "@mui/material/styles";
-import AppBar from "@mui/material/AppBar";
 import {
   Box,
   Paper,
   Button,
-  MenuList,
   Popper,
   Toolbar,
   IconButton,
   Typography,
   MenuItem,
-  Menu,
+  MenuList,
+  AppBar,
 } from "@mui/material";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { useNavigate } from "react-router-dom";
 import eiraa from "../../image/logo.jpg";
-import Expenseapply from "../Expense/Expenseapply";
-import ApprovedClaim from "../Expense/ApprovedClaim";
-import Expensedetail from "../Expense/Expensedetail";
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(3),
-    width: "auto",
-  },
+
+const StyledIconButton = styled(IconButton)(({ theme, active }) => ({
+  color: active ? theme.palette.primary.main : "rgb(181, 181, 181)",
 }));
 
 export default function PrimarySearchAppBar() {
   const navigate = useNavigate();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [showExpenseApply, setShowExpenseApply] = React.useState(false);
-  const [showExpensedetail,setshowExpensedetail]=React.useState(true);
-  const [showApprovedClaim, setApprovedClaim] = React.useState(false);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const location = useLocation();
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -64,44 +47,29 @@ export default function PrimarySearchAppBar() {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
-  const handleClaimApply = () => {
-    setShowExpenseApply(true);
-    setshowExpensedetail(false)
-  };
-  const handleClaimDatail = () => {
-    setshowExpensedetail(true)
-    setShowExpenseApply(false);
-  };
-
-  const handleApprovedClaim = () => {
-    setApprovedClaim(true);
-    setShowExpenseApply(false);
-    setshowExpensedetail(false);
-  };
-
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar
-        position="static"
-        sx={{ backgroundColor: "white", height: "70px" }}
-      >
+    <Box>
+      <AppBar position="static" sx={{ backgroundColor: "white", height: "70px" }}>
         <Toolbar>
           <img alt="eiralogo" src={eiraa} style={{ width: "160px" }} />
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <IconButton size="large" color="inherit">
-              <Typography style={{ width: "100%" }}>Claim Details</Typography>
-            </IconButton>
-            <IconButton size="large" color="inherit" onClick={handleClaimApply}>
-              <Typography>Claim Apply</Typography>
-            </IconButton>
-            <IconButton
-              size="large"
-              color="inherit"
-              onClick={handleApprovedClaim}
-            >
-              <Typography>Approved Claim</Typography>
-            </IconButton>
+          <Box>
+            {[
+              { label: "Claim Apply", path: "/menu/claim-apply" },
+              { label: "Approved Claim", path: "/menu/approved-claim" },
+              { label: "Claim Details", path: "/menu/claim-detail" },
+            ].map((item) => (
+              <StyledIconButton
+                key={item.label}
+                component={Link}
+                to={item.path}
+                size="large"
+                active={location.pathname === item.path}
+              >
+                <Typography sx={{ fontSize: '14px' }}>{item.label}</Typography>
+              </StyledIconButton>
+            ))}
+
             <IconButton
               size="large"
               edge="end"
@@ -110,10 +78,12 @@ export default function PrimarySearchAppBar() {
               aria-haspopup="true"
               onClick={handleProfileMenuOpen}
               color="inherit"
+              sx={{ color: "rgb(181, 181, 181)" }}
             >
               <AccountCircle />
             </IconButton>
           </Box>
+
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
@@ -142,7 +112,7 @@ export default function PrimarySearchAppBar() {
                   <Button
                     variant="text"
                     onClick={handleLogout}
-                    style={{ textTransform: "capitalize", color: "red" }}
+                    style={{ textTransform: "capitalize" }}
                     startIcon={<LogoutIcon />}
                   >
                     Log out
@@ -153,24 +123,6 @@ export default function PrimarySearchAppBar() {
           </Popper>
         </Toolbar>
       </AppBar>
-
-    
-      {showExpenseApply && (
-        <Box sx={{ mt: 2, p: 3 }}>
-          <Expenseapply />
-        </Box>
-      )}
-        {showExpensedetail &&(
-        <Box sx={{ mt: 2, p: 3 }}>
-          <Expensedetail />
-        </Box>
-      )}
-     
-      {showApprovedClaim && (
-        <Box sx={{ mt: 2, p: 3}}>
-          <ApprovedClaim />
-        </Box>
-      )}
     </Box>
   );
 }

@@ -1,0 +1,178 @@
+.modal-typo {
+    text-transform: capitalize;
+    line-height: 14.52px !important;
+    color: rgb(113, 118, 111);
+    font-size: 14px !important;
+  }
+  
+  .modal-head {
+    font-size: 20px !important;
+    font-weight: 500 !important;
+    /* Remove quotes around the value */
+    line-height: 16px !important;
+  }
+  
+  .styleModal {
+    position: absolute;
+    top: 50%;
+    left: 40%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    width: 58%;
+    height: 35rem;
+    padding: 1rem;
+    margin-left: 10%;
+  }
+  
+  .styleModalExpectedData {
+    position: absolute;
+    top: 50%;
+    left: 40%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    width: 88%;
+    height: 30rem;
+    padding: 1rem;
+    margin-left: 10%;
+  }
+  
+  .styleModalSite {
+    position: absolute;
+    top: 50%;
+    left: 40%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    width: 58%;
+    height: 35rem;
+    padding: 1rem;
+    margin-left: 10%;
+  }
+  
+  .styleModalCropper {
+    position: absolute;
+    top: 50%;
+    left: 40%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    width: 30%;
+    height: 25rem;
+    padding: 1rem;
+    margin-left: 10%;
+  }
+  
+  .styleModalSmall {
+    position: absolute;
+    top: 43%;
+    left: 40%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    width: 58%;
+    height: 42%;
+    padding: 1rem;
+    margin-left: 10%;
+  }
+  .styleModalSmal {
+    position: absolute;
+    top: 43%;
+    left: 40%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    width: 50%;
+    height: 42%;
+    padding: 1rem;
+    margin-left: 10%;
+  }
+  
+  .styleModalcustom {
+    position: absolute;
+
+    left: 40%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    width: 50%;
+    height: 80vh;
+    padding: 1rem;
+    margin-left: 10%;
+  }
+  
+  .modelTypo {
+    width: max-content;
+    margin-left: 2%;
+  }
+  
+  .modelTypoSmall {
+    /* width: max-content; */
+    padding: 0px 0px 0px 0px;
+  }
+  
+  .modelGrid {
+    margin-left: 2%;
+    margin-top: 2%;
+  }
+  
+  .modelAddCard {
+    width: 90%;
+    height: 21vh;
+    border: none;
+    box-shadow: none;
+    margin-top: 1.5px;
+    margin-left: 3%;
+  }
+  
+  .errorStyle {
+    color: red;
+    margin-top: 1%;
+    margin-left: 0%;
+    text-align: left;
+    font-size: 14px !important;
+    line-height: 14.52px !important;
+  }
+  
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #888888;
+    border-radius: 5px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+  
+  /* Base styles */
+  .underline-animation {
+    position: relative;
+    display: inline-block;
+    text-decoration: none;
+    color: gray;
+    transition: color 0.3s ease-in-out;
+  }
+  
+  /* Underline */
+  .underline-animation::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -0.5px;
+    width: 0%;
+    height: 1px;
+    background-color: gray;
+    transition: width 0.3s ease-in-out;
+  }
+  
+  /* Hover effect */
+  .underline-animation:hover::after {
+    width: 100%;
+  }
+  
+  /* Slide animation */
+  .underline-animation:hover {
+    transition: color 0.3s ease-in-out;
+  }
+  
